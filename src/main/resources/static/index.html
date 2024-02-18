@@ -2,71 +2,64 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Billettbestilling</title>
+    <style>
+        .error-message {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
-<h1>Bestilling av kinobilletter</h1>
-<div>
+    <h1>Bestilling av kinobiletter</h1>
     <label for="filmArkiv">Velg film:</label>
-
     <select id="filmArkiv" name="Filmer" required>
-        <option value ="titanic">Titanic</option>
-        <option value ="spiderMan">Spider Man</option>
-        <option value ="theBlindSide">The Blind Side</option>
-        <option value ="trainToBusan">Train to Busan</option>
-        <option value ="oppenheimer">Oppenheimer</option>
-        <option value ="interstellar">Interstellar</option>
+        <option value="titanic">Titanic</option>
+        <option value="spiderMan">Spider Man</option>
+        <option value="theBlindSide">The Blind Side</option>
+        <option value="trainToBusan">Train to Busan</option>
+        <option value="oppenheimer">Oppenheimer</option>
+        <option value="interstellar">Interstellar</option>
     </select>
-</div>
-<div>
-    <label for="antallBilletter">Antall</label>
+    <br>
+
+    <label for="antallBilletter">Antall:</label>
     <input type="number" id="antallBilletter" name="antallBilletter" min="1">
-</div>
-<div>
-    <label for="fornavn">Fornavn</label>
-    <input type="text" id="fornavn" name="fornavn">
-</div>
-<div>
-    <label for="etternavn">Etternavn</label>
-    <input type="text" id="etternavn" name="etternavn">
-</div>
-<div>
-    <label for="telefonNummer">Telefonnr</label>
-    <input type="number" id="telefonNummer" name="telefonNummer">
-</div>
-<div>
-    <label for="epost">Epost</label>
-    <input type="email" id="epost" name="epost">
-</div>
+    <label id="antallBilletterError" class="error-message"></label>
+    <br>
 
-<button id="kjøpBillett" type="submit" onclick="alleBilletter()">Kjøp Billett</button>
-<!--Kjøp billett knapp, litse.push -->
 
-<h2>Alle billetter</h2>
-<div id="billettene"></div>
-<!--Slett alle billettene, liste.splice? -->
-<button type="submit" onclick="slettBilletter()">Slett alle billettene</button>
-<script>
+    <label for="fornavn">Fornavn:</label>
+    <input type="text" id="fornavn" name="fornavn" required>
+    <label id="fornavnError" class="error-message"></label>
+    <br>
 
-    function alleBilletter() {
-        let filmInput = document.getElementById("filmArkiv").value;
-        let antallInput = document.getElementById("antallBilletter").value;
-        let fornavnInput = document.getElementById("fornavn").value;
-        let etternavnInput = document.getElementById("etternavn").value;
-        let telefonnrInput = document.getElementById("telefonNummer").value;
-        let epostInput = document.getElementById("epost").value;
 
-        let bestillingsArray = [filmInput, antallInput, fornavnInput, etternavnInput, telefonnrInput, epostInput];
-        let samletArray = bestillingsArray.join(' ');
+    <label for="etternavn">Etternavn:</label>
+    <input type="text" id="etternavn" name="etternavn" required>
+    <label id="etternavnError" class="error-message"></label>
+    <br>
 
-        document.getElementById("billettene").textContent = samletArray;
-    }
+    <label for="telefonNummer">Telefonnummer:</label>
+    <input type="tel" id="telefonNummer" name="telefonNummer" required>
+    <label id="telefonNummerError" class="error-message"></label>
+    <br>
 
-    function slettBilletter(){
-        document.getElementById("billettene").textContent = "";
-    }
+    <label for="epost">E-post:</label>
+    <input type="email" id="epost" name="epost" required>
+    <label id="epostError" class="error-message"></label>
+    <br>
 
-</script>
+    <button id="kjøpBillett" type="button" onclick="alleBilletter()">Kjøp Billett</button>
+    <br>
 
+    <h2>Alle billetter</h2>
+    <h3>Film Antall Fornavn Etternavn Telefonnr Epost</h3>
+
+    <div id="billettene"></div>
+
+    <button type="button" id="slettBilletter" onclick="slettBilletter()">Slett alle billettene</button>
+
+    <script src="index.js"></script> <!-- nederst så html kjører først-->
 </body>
 </html>
