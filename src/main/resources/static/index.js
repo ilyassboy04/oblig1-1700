@@ -31,8 +31,8 @@ function alleBilletter() {
 
     // Regexene som vi bruker for inputboksene
     let antallBilletterRegex = /^[1-9]\d*$/; //heltall mellom 1-9
-    let fornavnRegex = /^[a-zA-ZæøåÆØÅ\s]*$/; //standard for alfabet, inkl mellomrom og norske alfabet
-    let etternavnRegex = /^[a-zA-ZæøåÆØÅ\s]*$/;
+    let fornavnRegex = /^[a-zA-ZæøåÆØÅ\s]+$/; //standard for alfabet, inkl mellomrom og norske alfabet
+    let etternavnRegex = /^[a-zA-ZæøåÆØÅ\s]+$/;
     let telefonNummerRegex = /^(\+47)?\d{8}$/; //telefonnummer, minst 8 sifre
     let epostRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; //epostformat
 
