@@ -1,15 +1,16 @@
-let bilettsArray = [];
+
 let valideringsTeller = 0; //hver gang den passerer en validering så skal den oppdaters, slik passer man på at vi ikke lagrer en array med feil eller tom informasjon
 
 function updateBilletterDisplay() {
     let billetterDiv = document.getElementById("billettene");
     billetterDiv.innerHTML = ""; // "rengjør området" før det blir plastra på ny info senere
 
-    bilettsArray.forEach(function(bilett) {
+    /*bilettsArray.forEach(function(bilett) {
         let bilettInfo = document.createElement("p");
         bilettInfo.textContent = bilett.join(", ");
         billetterDiv.appendChild(bilettInfo);
     });
+     */
 }
 
 function validerInput(id, regex, errorMessageId, errorMessage) {
@@ -51,8 +52,20 @@ function alleBilletter() {
     let epostInput = document.getElementById("epost").value;
 
     if (valideringsTeller === 5) {
-        let bilett = [filmInput, antallInput, fornavnInput, etternavnInput, telefonnrInput, epostInput];
-        bilettsArray.push(bilett); //passert alle valideringene, da kan vi legge det inn i arrayen
+
+        const billett = {
+            film : filmInput,
+            antall : antallInput,
+            fornavn : fornavnInput,
+            etternavn : etternavnInput,
+            telefonnummer: telefonnrInput,
+            epost : epostInput
+        }
+        $.post("/lagre", billett, function (){
+            $.get("hentBillett", function (billetter){
+                console.log("test")
+            })
+        })
 
         updateBilletterDisplay();
     }
