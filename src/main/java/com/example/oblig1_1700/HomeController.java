@@ -22,4 +22,7 @@ public class HomeController {
         return list;
     }
 
+    @GetMapping("/slettBilletter")
+    public void slettBilletter(){list.clear();}
+
 }

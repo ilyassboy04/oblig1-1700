@@ -1,17 +1,7 @@
 
 let valideringsTeller = 0; //hver gang den passerer en validering så skal den oppdaters, slik passer man på at vi ikke lagrer en array med feil eller tom informasjon
 
-function updateBilletterDisplay() {
-    let billetterDiv = document.getElementById("billettene");
-    billetterDiv.innerHTML = ""; // "rengjør området" før det blir plastra på ny info senere
 
-    /*bilettsArray.forEach(function(bilett) {
-        let bilettInfo = document.createElement("p");
-        bilettInfo.textContent = bilett.join(", ");
-        billetterDiv.appendChild(bilettInfo);
-    });
-     */
-}
 
 function validerInput(id, regex, errorMessageId, errorMessage) {
     let input = document.getElementById(id);
@@ -63,16 +53,34 @@ function alleBilletter() {
         }
         $.post("/lagre", billett, function (){
             $.get("hentBillett", function (billetter){
-                console.log("test")
+                formaterData(billetter);
+
             })
         })
 
-        updateBilletterDisplay();
+
     }
+}
+function formaterData(billetter){
+    ut="<table class='table table-striped'>" +
+        "<tr><th>Film</th> <th>Antall</th> <th>Fornavn</th> <th>Etternavn</th> <th>Telefonnr</th> <th>Epost</th></tr>"
+    for(const billett of billetter){
+        ut+= "<tr><td>" + billett.film + "</td><td>" + billett.antall +"</td><td>"
+            + billett.fornavn + "</td><td>" + billett.etternavn + "</td><td>" + billett.telefonnummer
+            + "</td><td>" + billett.epost + "</td><td>";
+    }
+    ut += "</table>"
+    $("#billettene").html(ut);
 }
 
 
 function slettBilletter() {
-    document.getElementById("billettene").innerHTML = "";
-    bilettsArray.length = 0; //tømmer listen ved å sette lengden av alle elementer lik null
+    $.get("/slettBilletter", function (){
+        $.get("hentBillett", function (billetter){
+            formaterData(billetter);
+
+        })
+
+    });
+
 }

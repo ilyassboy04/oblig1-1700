@@ -18,19 +18,15 @@
     </div>
 </head>
 <body>
+<div class="container">
+
     <div class="row">
         <div class ="col-md-4">
             <h1>Bestilling av kinobiletter</h1>
             <form>
                 <div class="form-group">
-                    <label for="antallBilletter">Antallbilleter</label>
-                    <input type="number" id="antallBilletter" class="form-control" name="antallBilletter" min="1">
-                    <label id="antallBilletterError" class="error-message"></label>
-                </div>
 
-                <div>
-
-                    <label for ="filmArkiv" class="form-group">Velg film:</label>
+                    <label for ="filmArkiv">Velg film:</label>
                     <select id="filmArkiv" name="Filmer" class="form-control" required>
                         <option value="titanic">Titanic</option>
                         <option value="spiderMan">Spider Man</option>
@@ -40,6 +36,14 @@
                         <option value="interstellar">Interstellar</option>
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="antallBilletter">Antallbilleter</label>
+                    <input type="number" id="antallBilletter" class="form-control" name="antallBilletter" min="1">
+                    <label id="antallBilletterError" class="error-message"></label>
+                </div>
+
+
 
                 <div class="form-group">
                     <label for ="fornavn">Fornavn</label>
@@ -66,7 +70,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button id="kjøpBillett" type="button" onclick="alleBilletter()">Kjøp Billett</button>
+                    <button class="btn btn-success" id="kjøpBillett" type="button" onclick="alleBilletter()">Kjøp Billett</button>
                 </div>
 
 
@@ -74,11 +78,14 @@
         </div>
         <div class ="col-md-8">
             <h2>Alle billetter</h2>
-            <h3>Film Antall Fornavn Etternavn Telefonnr Epost</h3>
+            <div id="billettene" class ="table-responsive"></div>
 
-            <div id="billettene"></div>
 
-            <button type="button" id="slettBilletter" onclick="slettBilletter()">Slett alle billettene</button>
+
+
+            <button class="btn btn-danger" type="button" id="slettBilletter" onclick="slettBilletter()">Slett alle billettene</button>
+
+
 
 
         </div>
@@ -86,6 +93,7 @@
     </div>
 
     <script src="index.js"></script> <!-- nederst så html kjører først-->
+</div>
 
 </body>
 </html>
