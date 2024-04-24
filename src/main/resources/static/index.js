@@ -63,11 +63,15 @@ function alleBilletter() {
 }
 function formaterData(billetter){
     ut="<table class='table table-striped'>" +
-        "<tr><th>Film</th> <th>Antall</th> <th>Fornavn</th> <th>Etternavn</th> <th>Telefonnr</th> <th>Epost</th></tr>"
+        "<tr><th>Film</th> <th>Antall</th> <th>Fornavn</th> <th>Etternavn</th> <th>Telefonnr</th> <th>E-post</th>" +
+        "<th></th> <th></th> </tr>";
     for(const billett of billetter){
         ut+= "<tr><td>" + billett.film + "</td><td>" + billett.antall +"</td><td>"
             + billett.fornavn + "</td><td>" + billett.etternavn + "</td><td>" + billett.telefonnummer
-            + "</td><td>" + billett.epost + "</td><td>";
+            + "</td><td>" + billett.epost + "</td><td>"+  '<button class="btn btn-primary">Endre</button>'+ "</td><td>"
+            + '<button class ="btn btn-danger">Slett</button>'+ "</td>";
+
+
     }
     ut += "</table>"
     $("#billettene").html(ut);
@@ -78,9 +82,14 @@ function slettBilletter() {
     $.get("/slettBilletter", function (){
         $.get("hentBillett", function (billetter){
             formaterData(billetter);
-
         })
-
     });
+}
 
+function slettEnkeltBillett(){
+    $.get("/slettEnkeltBillett"), function (){
+        $.get("/hentBillett", function (billetter){
+            formaterData(billetter);
+        })
+    }
 }

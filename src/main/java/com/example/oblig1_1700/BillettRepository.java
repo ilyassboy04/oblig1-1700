@@ -28,4 +28,9 @@ public class BillettRepository {
         Billettdb.update(sql);
     }
 
+    public void slettEnkeltBillett(){
+        String sql ="DELETE FROM Biletter WHERE id = id";
+        Billettdb.update(sql);
+    }
+
 }
