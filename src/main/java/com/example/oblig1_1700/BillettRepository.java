@@ -20,7 +20,7 @@ public class BillettRepository {
 
     }
     public List<Billett> hentBillett(){
-        String sql = "SELECT * FROM Billetter ORDER BY ASC";
+        String sql = "SELECT * FROM Billetter ORDER BY etternavn ASC";
         return Billettdb.query(sql, new BeanPropertyRowMapper(Billett.class));
     }
     public void slettBilletter(){
