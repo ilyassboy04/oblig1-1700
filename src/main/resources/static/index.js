@@ -1,16 +1,7 @@
-let bilettsArray = [];
+
 let valideringsTeller = 0; //hver gang den passerer en validering så skal den oppdaters, slik passer man på at vi ikke lagrer en array med feil eller tom informasjon
 
-function updateBilletterDisplay() {
-    let billetterDiv = document.getElementById("billettene");
-    billetterDiv.innerHTML = ""; // "rengjør området" før det blir plastra på ny info senere
 
-    bilettsArray.forEach(function(bilett) {
-        let bilettInfo = document.createElement("p");
-        bilettInfo.textContent = bilett.join(", ");
-        billetterDiv.appendChild(bilettInfo);
-    });
-}
 
 function validerInput(id, regex, errorMessageId, errorMessage) {
     let input = document.getElementById(id);
@@ -31,8 +22,8 @@ function alleBilletter() {
 
     // Regexene som vi bruker for inputboksene
     let antallBilletterRegex = /^[1-9]\d*$/; //heltall mellom 1-9
-    let fornavnRegex = /^[a-zA-ZæøåÆØÅ\s]*$/; //standard for alfabet, inkl mellomrom og norske alfabet
-    let etternavnRegex = /^[a-zA-ZæøåÆØÅ\s]*$/;
+    let fornavnRegex = /^[a-zA-ZæøåÆØÅ\s]+$/; //standard for alfabet, inkl mellomrom og norske alfabet
+    let etternavnRegex = /^[a-zA-ZæøåÆØÅ\s]+$/;
     let telefonNummerRegex = /^(\+47)?\d{8}$/; //telefonnummer, minst 8 sifre
     let epostRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; //epostformat
 
@@ -51,15 +42,62 @@ function alleBilletter() {
     let epostInput = document.getElementById("epost").value;
 
     if (valideringsTeller === 5) {
-        let bilett = [filmInput, antallInput, fornavnInput, etternavnInput, telefonnrInput, epostInput];
-        bilettsArray.push(bilett); //passert alle valideringene, da kan vi legge det inn i arrayen
 
-        updateBilletterDisplay();
+        const billett = {
+            //id: id,
+            film : filmInput,
+            antall : antallInput,
+            fornavn : fornavnInput,
+            etternavn : etternavnInput,
+            telefonnummer: telefonnrInput,
+            epost : epostInput
+        }
+        $.post("/lagre", billett, function (){
+            $.get("hentBillett", function (billetter){
+                formaterData(billetter);
+
+            })
+        })
+        $("#film").val("");
+        $("#antall").val("");
+        $("#fornavn").val("");
+        $("#etternavn").val("");
+        $("#telefonNummer").val("");
+        $("#epost").val("");
+
     }
 }
+function formaterData(billetter){
+    ut="<table class='table table-striped'>" +
+        "<tr><th>Film</th> <th>Antall</th> <th>Fornavn</th> <th>Etternavn</th> <th>Telefonnr</th> <th>E-post</th>" +
+        "<th></th> <th></th> </tr>";
+    for(const billett of billetter){
+        ut+= "<tr><td>" + billett.film + "</td><td>" + billett.antall +"</td><td>"
+            + billett.fornavn + "</td><td>" + billett.etternavn + "</td><td>" + billett.telefonnummer
+            + "</td><td>" + billett.epost + "</td><td>"+  '<button class="btn btn-primary">Endre</button>'+ "</td><td>"
+            //+ '<button class ="btn btn-danger" onclick="slettEnkeltBillett('+billett.id+')">Slett</button>'+ "</td>";
 
+
+    }
+    ut += "</table>"
+    $("#billettene").html(ut);
+}
+
+function henteEnBillett(){
+
+}
 
 function slettBilletter() {
-    document.getElementById("billettene").innerHTML = "";
-    bilettsArray.length = 0; //tømmer listen ved å sette lengden av alle elementer lik null
+    $.get("/slettBilletter", function (){
+        $.get("hentBillett", function (billetter){
+            formaterData(billetter);
+        })
+    });
+}
+function slettEnkeltBillett(){
+    $.get("/slettEnkeltBillett", function (){
+        $.get("hentBillett", function (billetter) {
+            formaterData(billetter);
+        })
+    });
 }
