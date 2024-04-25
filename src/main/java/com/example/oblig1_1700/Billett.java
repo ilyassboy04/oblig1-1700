@@ -1,5 +1,6 @@
 package com.example.oblig1_1700;
 
+//lager objekter og getters og setters slik at vi kan bruke de i billettrepository og home controller
 public class Billett {
     private int id;
     private String film;

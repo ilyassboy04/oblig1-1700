@@ -10,6 +10,8 @@ import java.util.List;
 
 @RestController
 
+//er her vi kjører metodene som vi lagde i den andre java klassen
+
 public class HomeController {
     @Autowired
     private BillettRepository repository;
@@ -30,12 +32,6 @@ public class HomeController {
         repository.slettBilletter();
 
     }
-
-    /*@GetMapping("/hentEnBillettt")
-        public void hentEnBillett(int id){
-        return repository.hentEnBillett(id);
-    }
-     */
 
     @GetMapping("/slettEnkeltBillett")
     public void slettEnkeltBillett(int id){

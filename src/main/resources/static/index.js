@@ -42,7 +42,6 @@ function alleBilletter() {
     if (valideringsTeller === 5) {
 
         const billett = {
-            //id: id,
             film : filmInput,
             antall : antallInput,
             fornavn : fornavnInput,
@@ -50,6 +49,7 @@ function alleBilletter() {
             telefonnummer: telefonnrInput,
             epost : epostInput
         }
+        //lagrer verdiene og henter dem med tilbake formatert i tabeller
         $.post("/lagre", billett, function (){
             $.get("hentBillett", function (billetter){
                 formaterData(billetter);
@@ -57,6 +57,7 @@ function alleBilletter() {
             })
         })
 
+        //tømmer input fields etter at vi har lagret verdiene
         $("#film").val("");
         $("#antall").val("");
         $("#fornavn").val("");
@@ -70,6 +71,7 @@ function alleBilletter() {
 
 
 }
+//formater inputen i tabeller
 function formaterData(billetter){
     ut="<table class='table table-striped'>" +
         "<tr><th>Film</th> <th>Antall</th> <th>Fornavn</th> <th>Etternavn</th> <th>Telefonnr</th> <th>E-post</th>" +

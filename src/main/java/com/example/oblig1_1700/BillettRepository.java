@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public class BillettRepository {
 
+    //bruker funksjoner strings til å kjøre sql spørringer som henter dataen, funksjonen kjøres i index.js, basically her er metodene
     @Autowired
     private JdbcTemplate Billettdb;
 
@@ -19,15 +20,18 @@ public class BillettRepository {
                 innBillett.getTelefonnummer(),innBillett.getEpost());
 
     }
+    //henter billetene fra db slik at vi kan formatere de så legge dem i tabellen, sortert etter etternavn
     public List<Billett> hentBillett(){
         String sql = "SELECT * FROM Billetter ORDER BY etternavn ASC";
         return Billettdb.query(sql, new BeanPropertyRowMapper(Billett.class));
     }
+    //sletter alle
     public void slettBilletter(){
         String sql = "DELETE FROM Billetter";
         Billettdb.update(sql);
     }
 
+    //sletter fra tilsvarende id
     public void slettEnkeltBillett(int id){
         String sql ="DELETE FROM Billetter WHERE id = ?";
         Billettdb.update(sql, id);
