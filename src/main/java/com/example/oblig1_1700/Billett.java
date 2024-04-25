@@ -2,7 +2,6 @@ package com.example.oblig1_1700;
 
 public class Billett {
     private int id;
-
     private String film;
     private int antall;
     private String fornavn;
@@ -21,9 +20,7 @@ public class Billett {
     }
 
     public  Billett(){
-
     }
-
     public int getId(){
         return id;
     }

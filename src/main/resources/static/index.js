@@ -57,7 +57,12 @@ function alleBilletter() {
 
             })
         })
-
+        $("#film").val("");
+        $("#antall").val("");
+        $("#fornavn").val("");
+        $("#etternavn").val("");
+        $("#telefonNummer").val("");
+        $("#epost").val("");
 
     }
 }
@@ -78,6 +83,7 @@ function formaterData(billetter){
 }
 
 
+
 function slettBilletter() {
     $.get("/slettBilletter", function (){
         $.get("hentBillett", function (billetter){
@@ -86,7 +92,7 @@ function slettBilletter() {
     });
 }
 
-function slettEnkeltBillett(){
+function slettEnBillett(){
     $.get("/slettEnkeltBillett"), function (){
         $.get("/hentBillett", function (billetter){
             formaterData(billetter);
