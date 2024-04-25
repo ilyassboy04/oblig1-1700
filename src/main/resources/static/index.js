@@ -1,8 +1,6 @@
 
 let valideringsTeller = 0; //hver gang den passerer en validering så skal den oppdaters, slik passer man på at vi ikke lagrer en array med feil eller tom informasjon
 
-
-
 function validerInput(id, regex, errorMessageId, errorMessage) {
     let input = document.getElementById(id);
     let feilMelding = document.getElementById(errorMessageId);
@@ -58,6 +56,7 @@ function alleBilletter() {
 
             })
         })
+
         $("#film").val("");
         $("#antall").val("");
         $("#fornavn").val("");
@@ -65,7 +64,11 @@ function alleBilletter() {
         $("#telefonNummer").val("");
         $("#epost").val("");
 
+
+
     }
+
+
 }
 function formaterData(billetter){
     ut="<table class='table table-striped'>" +
@@ -75,7 +78,7 @@ function formaterData(billetter){
         ut+= "<tr><td>" + billett.film + "</td><td>" + billett.antall +"</td><td>"
             + billett.fornavn + "</td><td>" + billett.etternavn + "</td><td>" + billett.telefonnummer
             + "</td><td>" + billett.epost + "</td><td>"+  '<button class="btn btn-primary">Endre</button>'+ "</td><td>"
-            //+ '<button class ="btn btn-danger" onclick="slettEnkeltBillett('+billett.id+')">Slett</button>'+ "</td>";
+            + '<button class ="btn btn-danger" onclick="slettEnkeltBillett('+billett.id+')">Slett</button>'+ "</td>";
 
 
     }
@@ -83,9 +86,16 @@ function formaterData(billetter){
     $("#billettene").html(ut);
 }
 
-function henteEnBillett(){
+function slettEnkeltBillett(id){
+    const url = "/slettEnkeltBillett?id=" + id;
 
+    $.get(url, function (){
+        $.get("hentBillett", function (billetter) {
+            formaterData(billetter);
+        })
+    });
 }
+
 
 function slettBilletter() {
     $.get("/slettBilletter", function (){
@@ -94,10 +104,4 @@ function slettBilletter() {
         })
     });
 }
-function slettEnkeltBillett(){
-    $.get("/slettEnkeltBillett", function (){
-        $.get("hentBillett", function (billetter) {
-            formaterData(billetter);
-        })
-    });
-}
+
