@@ -44,6 +44,7 @@ function alleBilletter() {
     if (valideringsTeller === 5) {
 
         const billett = {
+            //id: id,
             film : filmInput,
             antall : antallInput,
             fornavn : fornavnInput,
@@ -74,7 +75,7 @@ function formaterData(billetter){
         ut+= "<tr><td>" + billett.film + "</td><td>" + billett.antall +"</td><td>"
             + billett.fornavn + "</td><td>" + billett.etternavn + "</td><td>" + billett.telefonnummer
             + "</td><td>" + billett.epost + "</td><td>"+  '<button class="btn btn-primary">Endre</button>'+ "</td><td>"
-            + '<button class ="btn btn-danger">Slett</button>'+ "</td>";
+            //+ '<button class ="btn btn-danger" onclick="slettEnkeltBillett('+billett.id+')">Slett</button>'+ "</td>";
 
 
     }
@@ -82,7 +83,9 @@ function formaterData(billetter){
     $("#billettene").html(ut);
 }
 
+function henteEnBillett(){
 
+}
 
 function slettBilletter() {
     $.get("/slettBilletter", function (){
@@ -91,11 +94,10 @@ function slettBilletter() {
         })
     });
 }
-
-function slettEnBillett(){
-    $.get("/slettEnkeltBillett"), function (){
-        $.get("/hentBillett", function (billetter){
+function slettEnkeltBillett(){
+    $.get("/slettEnkeltBillett", function (){
+        $.get("hentBillett", function (billetter) {
             formaterData(billetter);
         })
-    }
+    });
 }

@@ -38,7 +38,7 @@ public class HomeController {
      */
 
     @GetMapping("/slettEnkeltBillett")
-    public void slettEnkeltBillett(int id){
+    public void slettEnkeltBillett(Billett id){
         repository.slettEnkeltBillett(id);
     }
 
